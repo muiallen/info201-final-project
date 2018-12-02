@@ -9,13 +9,23 @@ library(data.table)
 library(ggplot2)
 library(stringr)
 library(R.utils)
-library(mapproj)
 
 # Define server logic required to draw bar graphs of Google Play Store app data
 shinyServer(function(input, output) {
   
-  # Reads Google Play Store data and filters/cleans it to show categories and their respective app counts in the store
-  table_data <-  fread("googleplaystore.csv", stringsAsFactors = FALSE)
+  # Reads Google Play Store data and filters/cleans the the category titles
+  app_data <-  fread("googleplaystore.csv", stringsAsFactors = FALSE)
+  app_data$Category = str_replace_all(table_data$Category, "_", " ")
+  app_data$Category = str_to_title(table_data$Category)
+  
+  # 
+  output$totalAppCategoryBarPlot <- renderPlot({
+    overall_category_count <- group_by(table_data, Category) %>% summarize(count=n())
+    ggplot(table_data) + geom_bar(aes(x = reorder(Category, count), y = count, fill = Category), stat = "identity") + 
+      labs(title = "Total Number of Google Play Store Apps by Category", x = "Category", y = "Number of Apps") + 
+      coord_flip() + theme(legend.position = "none")
+  })
+  
   # Sets subset based on input category
   
   # Creates summary text 

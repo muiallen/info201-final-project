@@ -1,5 +1,4 @@
 library(shiny)
-library(ggplot2)
 
 shinyUI(fluidPage(
   titlePanel("Google Play Store Analysis"),
@@ -19,8 +18,7 @@ shinyUI(fluidPage(
                   choices = c("Installs", "Rating"))
     ),
     mainPanel(
-      ggplot("graph_output")
+      plotOutput("totalAppCategoryBarPlot")
     )
   )
-)
-)
+))

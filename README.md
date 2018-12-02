@@ -3,7 +3,9 @@ Zikai Song, Allen Mui, Heewon Song
 
 ## Dataset Description
 The dataset we will be working with is called Google Play Store Apps. The dataset includes 10,000 applications that are on the Google Play Store and detailed information about each application. The dataset is from kaggle.com and it has about 500 upvotes. According to kaggle, Lavanya Gupta, a software engineer at HSBC Software Development scraped the data for developer use in “analysing the Android market”. She found that many of the public datasets on kaggle were about the Apple App store so decided to collect Google Play Store data for the public and app-making businesses to use.
+
 Here is a link to the dataset:
+
 https://www.kaggle.com/lava18/google-play-store-apps
 
 ## Purpose

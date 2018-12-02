@@ -21,6 +21,7 @@ shinyServer(function(input, output) {
   # 
   output$totalAppCategoryBarPlot <- renderPlot({
     overall_category_count <- group_by(table_data, Category) %>% summarize(count=n())
+    
     ggplot(table_data) + geom_bar(aes(x = reorder(Category, count), y = count, fill = Category), stat = "identity") + 
       labs(title = "Total Number of Google Play Store Apps by Category", x = "Category", y = "Number of Apps") + 
       coord_flip() + theme(legend.position = "none")

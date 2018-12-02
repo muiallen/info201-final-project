@@ -1,4 +1,4 @@
-# Info201 Final Project
+# INFO201 Final Project
 Zikai Song, Allen Mui, Heewon Song
 
 ## Dataset Description

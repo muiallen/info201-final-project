@@ -15,14 +15,14 @@ shinyServer(function(input, output) {
   
   # Reads Google Play Store data and filters/cleans the the category titles
   app_data <-  fread("googleplaystore.csv", stringsAsFactors = FALSE)
-  app_data$Category = str_replace_all(table_data$Category, "_", " ")
-  app_data$Category = str_to_title(table_data$Category)
+  app_data$Category = str_replace_all(app_data$Category, "_", " ")
+  app_data$Category = str_to_title(app_data$Category)
   
   # 
   output$totalAppCategoryBarPlot <- renderPlot({
-    overall_category_count <- group_by(table_data, Category) %>% summarize(count=n())
+    overall_category_count <- group_by(app_data, Category) %>% summarize(count=n())
     
-    ggplot(table_data) + geom_bar(aes(x = reorder(Category, count), y = count, fill = Category), stat = "identity") + 
+    ggplot(overall_category_count) + geom_bar(aes(x = reorder(Category, count), y = count, fill = Category), stat = "identity") + 
       labs(title = "Total Number of Google Play Store Apps by Category", x = "Category", y = "Number of Apps") + 
       coord_flip() + theme(legend.position = "none")
   })

@@ -27,6 +27,12 @@ shinyServer(function(input, output) {
       coord_flip() + theme(legend.position = "none")
   })
   
+  #
+  output$topTenAppsBarPlot <- renderPlot({
+    freePaid <- switch()
+    index <- switch()
+  })
+  
   # Sets subset based on input category
   
   # Creates summary text 

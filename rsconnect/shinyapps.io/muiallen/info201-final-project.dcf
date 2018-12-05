@@ -1,0 +1,12 @@
+name: info201-final-project
+title: info201-final-project
+username:
+account: muiallen
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 604336
+bundleId: 1741286
+url: https://muiallen.shinyapps.io/info201-final-project/
+when: 1543980620.60305
+asMultiple: FALSE
+asStatic: FALSE

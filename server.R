@@ -9,6 +9,7 @@ library(data.table)
 library(ggplot2)
 library(stringr)
 library(R.utils)
+library(gsubfn)
 
 # Define server logic required to draw bar graphs of Google Play Store app data
 shinyServer(function(input, output) {

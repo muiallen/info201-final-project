@@ -16,12 +16,14 @@ shinyServer(function(input, output) {
   # Reads Google Play Store data and filters/cleans the the category titles
   app_data <- fread("googleplaystore.csv", stringsAsFactors = FALSE)
   app_data <- subset(app_data, !duplicated(app_data$App))
+  app_data$App = str_to_title(app_data$App)
   app_data$Category = str_replace_all(app_data$Category, "_", " ")
   app_data$Category = str_to_title(app_data$Category)
+  app_data$Category = str_replace_all(app_data$Category, "And", "&")
   app_data$Installs = gsubfn(".", list("+" = "", "," = ""), app_data$Installs)
   app_data$Installs = as.integer(app_data$Installs)
   
-  # 
+  # Plots categories of apps on the Google Play Store based on how many apps fall under those categories
   output$totalAppCategoryBarPlot <- renderPlot({
     overall_category_count <- group_by(app_data, Category) %>% summarize(count=n())
     
@@ -32,20 +34,40 @@ shinyServer(function(input, output) {
   
   #
   output$topAppsBarPlot <- renderPlot({
-    topTwenty <- filter(app_data, Type == "Free")
-    #if(input$Category != "All") {
-      #topTwenty <- filter(topTwenty, Category == input$Category)
-    #}
-    #if(input$Index == "Installs"){
-      topTwenty <- arrange(topTwenty, desc(Installs))
-    #} else if(input$Index == "Rating"){
-      #topTwenty <- arrange(topTwenty, Rating)
-    #}
-    topTwenty <- head(topTwenty, 20)
+    graph_title <- "Top Twenty"
+    if(input$Price == "All"){
+      topTwenty <- app_data
+    } else if(input$Price == "Free"){
+      graph_title <- paste0(graph_title, " Free")
+      topTwenty <- filter(app_data, Type == "Free")  
+    } else if (input$Price == "Paid") {
+      graph_title <- paste0(graph_title, " Paid")
+      topTwenty <- filter(app_data, Type == "Paid") 
+    }
     
-    ggplot(topTwenty) + geom_bar(aes(x = App, y = Installs, fill = App), stat = "identity") +
-      labs(title = "Top Twenty Apps", x = "App", y = "Number of Installs") + 
-      coord_flip() + theme(legend.position = "none")
+    if(input$Category != "All") {
+      graph_title <- paste0(graph_title, " ", input$Category)
+      topTwenty <- filter(topTwenty, Category == input$Category)
+    }
+    
+    if(input$Index == "Installs"){
+      graph_title <- paste0(graph_title, " Apps by Installs")
+      topTwenty <- arrange(topTwenty, desc(Installs))
+      topTwenty <- head(topTwenty, 20)
+      
+      ggplot(topTwenty) + geom_bar(aes(x = reorder(App, Installs), y = Installs, fill = App), stat = "identity") +
+        labs(title = graph_title, x = "App", y = "Number of Installs") + 
+        coord_flip() + theme(legend.position = "none")
+      
+    } else if(input$Index == "Reviews"){
+      graph_title <- paste0(graph_title, " Apps by Reviews")
+      topTwenty <- arrange(topTwenty, desc(Reviews))
+      topTwenty <- head(topTwenty, 20)
+
+      ggplot(topTwenty) + geom_bar(aes(x = reorder(App, Reviews), y = Reviews, fill = App), stat = "identity") +
+        labs(title = graph_title, x = "App", y = "Number of Reviews") + 
+        coord_flip() + theme(legend.position = "none")
+    }
   })
   
   # Sets subset based on input category

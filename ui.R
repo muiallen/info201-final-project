@@ -15,11 +15,12 @@ shinyUI(fluidPage(
                                                                "Videoplayers", "Weather")),
       radioButtons("Index", 
                   "Select Index", 
-                  choices = c("Installs", "Rating"))
+                  choices = c("Installs", "Reviews"))
     ),
     mainPanel(
+      plotOutput("topAppsBarPlot"),
       plotOutput("totalAppCategoryBarPlot"),
-      plotOutput("topAppsBarPlot")
+      textOutput("summary")
     )
   )
 ))

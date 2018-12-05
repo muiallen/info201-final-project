@@ -82,18 +82,7 @@ shinyServer(function(input, output) {
     }
   })
   
-  # Creates intro text 
-  #output$intro <- renderText({
-    #paste0("The dataset we will be working with is called Google Play Store Apps. The dataset includes about 
-           #10,000 applications that are on the Google Play Store and detailed information about each application. 
-           #The dataset is from kaggle.com and it has more than 600 upvotes. According to kaggle, Lavanya Gupta, a software 
-           #engineer at HSBC Software Development scraped the data for developer use in "analysing the Android market". 
-           #She found that many of the public datasets on kaggle were about the Apple App store so decided to collect Google Play 
-           #Store data for the public and app-making businesses to use. We have created data visualizations with advertising
-           #companies looking for the right apps to advertise their products on in mind.")
-  #})
-  
-  # Creates summary text
+  # Creates summary text for the overall popular app categories
   output$summary <- renderText({
     paste0("There are 33 app categories on the Google Play Store platform. 
            The top three categories with most apps are Family, Game, and Tools. 

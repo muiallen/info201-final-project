@@ -14,5 +14,5 @@ We will be displaying the data through a *Shiny* app. Our *Shiny* app mainly con
 The dataset provide us with a detailed insight on user behavior on the *Google Play Store* platform. Based on the app data, we can go deeper and examine the relationship between different indexes, and research the factors that lead to the formation of certain correlations between indexes.The data enables us to portray an image of user and we can utilize it to provide better service to the users, developers, and advertising companies of the *Google Play Store*.
 
 ## Links
-[Project Proposal](https://docs.google.com/document/d/1P9SfgXetSk98SHsm-I5fk5XBZYC82bkvIjoJ90Cko6c/edit?usp=sharing)
+[Project Proposal](https://docs.google.com/document/d/1P9SfgXetSk98SHsm-I5fk5XBZYC82bkvIjoJ90Cko6c/edit?usp=sharing)</br>
 [Presentation Slides](https://docs.google.com/presentation/d/1AFOxOgttoaMU9E_LCR1wvh-ACsEQCHuojaTes_Ck5BQ/edit?usp=sharing)

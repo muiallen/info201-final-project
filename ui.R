@@ -18,7 +18,8 @@ shinyUI(fluidPage(
                   choices = c("Installs", "Rating"))
     ),
     mainPanel(
-      plotOutput("totalAppCategoryBarPlot")
+      plotOutput("totalAppCategoryBarPlot"),
+      plotOutput("topAppsBarPlot")
     )
   )
 ))

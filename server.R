@@ -29,43 +29,46 @@ shinyServer(function(input, output) {
     
     ggplot(overall_category_count) + geom_bar(aes(x = reorder(Category, count), y = count, fill = Category), stat = "identity") + 
       labs(title = "Total Number of Google Play Store Apps by Category", x = "Category", y = "Number of Apps") + 
+      scale_y_continuous(labels = scales::comma) +
       coord_flip() + theme(legend.position = "none")
   })
   
   #
   output$topAppsBarPlot <- renderPlot({
-    graph_title <- "Top Twenty"
+    graph_title <- "Top"
     if(input$Price == "All"){
-      topTwenty <- app_data
+      topApps <- app_data
     } else if(input$Price == "Free"){
       graph_title <- paste0(graph_title, " Free")
-      topTwenty <- filter(app_data, Type == "Free")  
+      topApps <- filter(app_data, Type == "Free")  
     } else if (input$Price == "Paid") {
       graph_title <- paste0(graph_title, " Paid")
-      topTwenty <- filter(app_data, Type == "Paid") 
+      topApps <- filter(app_data, Type == "Paid") 
     }
     
     if(input$Category != "All") {
       graph_title <- paste0(graph_title, " ", input$Category)
-      topTwenty <- filter(topTwenty, Category == input$Category)
+      topApps <- filter(topApps, Category == input$Category)
     }
     
     if(input$Index == "Installs"){
       graph_title <- paste0(graph_title, " Apps by Installs")
-      topTwenty <- arrange(topTwenty, desc(Installs))
-      topTwenty <- head(topTwenty, 20)
+      topApps <- arrange(topApps, desc(Installs))
+      topApps <- head(topApps, 20)
       
-      ggplot(topTwenty) + geom_bar(aes(x = reorder(App, Installs), y = Installs, fill = App), stat = "identity") +
+      ggplot(topApps) + geom_bar(aes(x = reorder(App, Installs), y = Installs, fill = App), stat = "identity") +
         labs(title = graph_title, x = "App", y = "Number of Installs") + 
+        scale_y_continuous(labels = scales::comma) +
         coord_flip() + theme(legend.position = "none")
       
     } else if(input$Index == "Reviews"){
       graph_title <- paste0(graph_title, " Apps by Reviews")
-      topTwenty <- arrange(topTwenty, desc(Reviews))
-      topTwenty <- head(topTwenty, 20)
+      topApps <- arrange(topApps, desc(Reviews))
+      topApps <- head(topApps, 20)
 
-      ggplot(topTwenty) + geom_bar(aes(x = reorder(App, Reviews), y = Reviews, fill = App), stat = "identity") +
+      ggplot(topApps) + geom_bar(aes(x = reorder(App, Reviews), y = Reviews, fill = App), stat = "identity") +
         labs(title = graph_title, x = "App", y = "Number of Reviews") + 
+        ## scale_y_continuous(labels = scales::comma) +
         coord_flip() + theme(legend.position = "none")
     }
   })
@@ -73,7 +76,18 @@ shinyServer(function(input, output) {
   # Sets subset based on input category
   
   # Creates summary text 
+  output$intro <- renderText({
+    paste0("The dataset we will be working with is called Google Play Store Apps. 
+           The dataset includes about 10,000 applications that are on the Google Play Store 
+           and detailed information about each application. 
+           The dataset is from kaggle.com.")
+  })
+  
   output$summary <- renderText({
-    paste0("For later")
+    paste0("There are 33 app categories on the Google Play Store platform. 
+           The top three categories with most apps are Family, GameS, and Tools. 
+           The Family category has 1972 apps; Games category has 1144 apps; Tools category has 843 apps. 
+           Advertisement companies tasked with marketing family, game, and tool products will find a plethora 
+           of apps on the Google Play Store that they can advertise their products on.")
   })
 })

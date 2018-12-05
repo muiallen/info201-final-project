@@ -86,8 +86,9 @@ shinyServer(function(input, output) {
   output$summary <- renderText({
     paste0("There are 33 app categories on the Google Play Store platform. 
            The top three categories with most apps are Family, GameS, and Tools. 
-           The Family category has 1972 apps; Games category has 1144 apps; Tools category has 843 apps. 
-           Advertisement companies tasked with marketing family, game, and tool products will find a plethora 
-           of apps on the Google Play Store that they can advertise their products on.")
+           The Family category has ", sum(app_data$Category == "Family"), " apps; Game category has ",
+           sum(app_data$Category == "Game"), " apps; Tools category has ", sum(app_data$Category == "Tools"),
+           " apps. Advertisement companies tasked with marketing family, game, and tool products 
+           will find a plethora of apps on the Google Play Store that they can advertise their products on.")
   })
 })
